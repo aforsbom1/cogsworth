@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "layer.h"
 
 Layer create_layer(int num_neurons, int num_inputs_per_neuron)

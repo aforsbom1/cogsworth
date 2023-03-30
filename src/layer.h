@@ -1,6 +1,6 @@
 #include "neuron.h"
 
-typedef struct
+typedef struct Layer
 {
     Neuron *neurons;
     int num_neurons;
