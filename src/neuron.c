@@ -5,6 +5,7 @@
 Neuron createNeuron()
 {
     Neuron n;
+    n.num_inputs = 3;
     n.weights = malloc(n.num_inputs * sizeof(double));
     n.weights[0] = 0.2;
     n.weights[1] = 0.5;

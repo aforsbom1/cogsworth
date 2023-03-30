@@ -3,5 +3,5 @@
 int main()
 {
     Neuron n = createNeuron();
-    return 0;
+    return n.num_inputs;
 }
