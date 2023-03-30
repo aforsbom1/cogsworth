@@ -8,4 +8,4 @@ typedef struct Neuron
     double (*activation_function)(double);
 } Neuron;
 
-Neuron createNeuron();
+Neuron create_neuron();

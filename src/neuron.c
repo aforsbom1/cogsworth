@@ -2,15 +2,15 @@
 #include "neuron.h"
 #include "sigmoid.h"
 
-Neuron createNeuron()
+Neuron create_neuron(int num_inputs)
 {
-    Neuron n;
-    n.num_inputs = 3;
-    n.weights = malloc(n.num_inputs * sizeof(double));
-    n.weights[0] = 0.2;
-    n.weights[1] = 0.5;
-    n.weights[2] = 0.1;
-    n.bias = -0.3;
+    Neuron neuron = {
+        .activation_function = &sigmoid,
+        .bias = 0,
+        .error = 0,
+        .num_inputs = num_inputs,
+        .weights = calloc(num_inputs, sizeof(double)),
+        .output = 0};
 
-    return n;
+    return neuron;
 }
