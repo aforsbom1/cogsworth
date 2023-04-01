@@ -1,6 +1,5 @@
 #include <stdlib.h>
-#include "neuron.h"
-#include "sigmoid.h"
+#include "utils.h"
 
 Neuron create_neuron(int num_inputs)
 {

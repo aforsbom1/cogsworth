@@ -1,1 +1,0 @@
-double sigmoid(double x);
