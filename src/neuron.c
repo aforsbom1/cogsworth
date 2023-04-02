@@ -8,7 +8,7 @@ Neuron create_neuron(int num_inputs)
         .bias = 0,
         .error = 0,
         .num_inputs = num_inputs,
-        .weights = calloc(num_inputs, sizeof(double)),
+        .weights = malloc(num_inputs * sizeof(double)),
         .output = 0};
 
     return neuron;
