@@ -6,13 +6,13 @@ pub struct Neuron {
 }
 
 impl Neuron {
-    pub fn new(num_inputs: usize) -> Neuron {
+    pub fn new(num_inputs: usize) -> Self {
         let mut weights = Vec::with_capacity(num_inputs);
         for _ in 0..num_inputs {
             weights.push(rand::random::<f64>());
         }
         let bias = rand::random::<f64>();
-        Neuron {
+        Self {
             output: 0.0,
             error: 0.0,
             weights,
