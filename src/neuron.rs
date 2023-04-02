@@ -30,6 +30,13 @@ impl Neuron {
             + self.bias;
         self.output = sigmoid(sum);
     }
+
+    pub fn update_weights(&mut self) {
+        for i in 0..self.weights.len() {
+            self.weights[i] += self.error * self.output * (1.0 - self.output) * self.output;
+        }
+        self.bias += self.error * self.output * (1.0 - self.output) * self.output;
+    }
 }
 
 fn sigmoid(x: f64) -> f64 {

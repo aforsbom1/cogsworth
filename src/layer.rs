@@ -13,7 +13,6 @@ impl Layer {
             neurons.push(Neuron::new(num_inputs));
         }
 
-    
         Self {
             num_neurons,
             neurons,
@@ -24,5 +23,15 @@ impl Layer {
         for neuron in &mut self.neurons {
             neuron.set_inputs(inputs);
         }
+    }
+
+    pub fn get_error(&mut self, neuron_index: usize) -> f64 {
+        let mut error: f64 = 0.0;
+
+        for neuron in self.neurons.iter() {
+            error += neuron.weights[neuron_index] * neuron.error;
+        }
+
+        error
     }
 }
