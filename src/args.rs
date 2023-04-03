@@ -12,10 +12,14 @@ pub fn get_matches() -> ArgMatches {
                 ),
         )
         .subcommand(
-            Command::new("generate_spm")
+            Command::new("test_spm")
                 .about("Generate sentencepiece model from .txt file")
                 .arg(
-                    arg!(-i --input <FILE> "Path to .txt file")
+                    arg!(-i --input <FILE> "test input string")
+                        .value_parser(value_parser!(PathBuf)),
+                )
+                .arg(
+                    arg!(-m --model <FILE> "Path to .model file")
                         .value_parser(value_parser!(PathBuf)),
                 ),
         )
@@ -32,7 +36,7 @@ pub fn get_matches() -> ArgMatches {
 
 pub enum Mode {
     Train,
-    GenerateSpm,
+    TestSpm,
     Operate,
     Unknown,
 }
@@ -42,8 +46,8 @@ pub fn get_mode(matches: &ArgMatches) -> (Mode, &ArgMatches) {
         return (Mode::Train, matches);
     }
 
-    if let Some(matches) = matches.subcommand_matches("generate_spm") {
-        return (Mode::GenerateSpm, matches);
+    if let Some(matches) = matches.subcommand_matches("test_spm") {
+        return (Mode::TestSpm, matches);
     }
 
     if let Some(matches) = matches.subcommand_matches("operate") {
@@ -53,8 +57,8 @@ pub fn get_mode(matches: &ArgMatches) -> (Mode, &ArgMatches) {
     return (Mode::Unknown, matches);
 }
 
-pub fn get_arg(matches: &ArgMatches) -> String {
-    if let Some(config_path) = matches.get_one::<PathBuf>("input") {
+pub fn get_arg(matches: &ArgMatches, input_name: &str) -> String {
+    if let Some(config_path) = matches.get_one::<PathBuf>(input_name) {
         return config_path.display().to_string();
     } else {
         return "None.".to_string();

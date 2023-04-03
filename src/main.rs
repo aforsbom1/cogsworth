@@ -5,7 +5,7 @@ mod neuron;
 
 use crate::args::{get_arg, get_matches, get_mode, Mode};
 use crate::network::Network;
-use crate::sentencepiece::SentencePieceTrainer;
+use sentencepiece::SentencePieceProcessor;
 
 fn main() {
     let matches = get_matches();
@@ -44,29 +44,15 @@ fn main() {
 
             print_outputs(&network, inputs);
         }
-        Mode::GenerateSpm => {
-            let input = get_arg(mode.1);
+        Mode::TestSpm => {
+            let model = get_arg(mode.1, "model");
+            let input = get_arg(mode.1, "input");
 
-            let mut trainer = SentencePieceTrainer::new();
+            let spp = SentencePieceProcessor::open(model).unwrap();
+            let pieces = spp.encode(input.as_str()).unwrap().into_iter();
 
-            // Set the input file path
-            trainer.set_input_file(input);
-
-            // Set the output model path
-            trainer.set_model_output("./output");
-
-            // Set other training options as desired
-            // For example, you can set the size of the vocabulary:
-            trainer.set_vocab_size(10000);
-
-            // Train the SentencePiece model
-            let result = trainer.train();
-
-            // Check if the training was successful
-            if let Err(e) = result {
-                eprintln!("Error training SentencePiece model: {}", e);
-            } else {
-                println!("SentencePiece model trained successfully!");
+            for piece in pieces {
+                println!(" id:{} token:{}", piece.id, piece.piece);
             }
         }
         Mode::Operate => {
